@@ -12,8 +12,7 @@
         "express": "^4.19.2",
         "express-rate-limit": "^7.4.0",
         "morgan": "^1.10.0",
-        "swagger-ui-express": "^5.0.1",
-        "winston": "^3.13.1"
+        "swagger-ui-express": "^5.0.1"
     },
     "devDependencies": {
         "@eslint/js": "^9.7.0",
@@ -37,8 +36,8 @@
     "scripts": {
         "start": "node --no-warnings=ExperimentalWarning ./src/index.js",
         "dev": "nodemon --no-warnings=ExperimentalWarning ./src/index.js",
-        "test": "jest",
-        "test:watch": "jest --watchAll",
-        "test:coverage": "jest --coverage"
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+        "test:watch": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watchAll",
+        "test:coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js --coverage"
     }
 }

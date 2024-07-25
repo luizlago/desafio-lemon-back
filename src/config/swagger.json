@@ -1,7 +1,7 @@
 {
     "openapi": "3.0.3",
     "info": {
-        "title": "🍋 Lemon Energy - Documentação API",
+        "title": "Documentação API",
         "description": "Pagina de documentação relativa a implementação do desafio de backend.",
         "version": "1.0.0"
     },
