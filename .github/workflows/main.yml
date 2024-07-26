@@ -10,10 +10,9 @@ jobs:
         steps:
             - name: Fetch project files
               uses: actions/checkout@v3
-            - name: 'Create env file'
+            - name: 'Set env file'
               run: |
-                  touch .env
-                  echo "PORT=300052\nAPI_PREFIX=/api/v1\nNODE_ENV=development\nRATE_LIMIT_MAX=100\nRATE_LIMIT_WINDOW=60000" >> .env
+                  cp -f .env.example .env
             - name: Build Docker image
               uses: wshihadeh/docker-deployment-action@v2
               with:
@@ -32,6 +31,9 @@ jobs:
         steps:
             - name: checkout repo
               uses: actions/checkout@v3
+            - name: 'Set env file'
+              run: |
+                  cp -f .env.example .env
             - name: use node.js
               uses: actions/setup-node@v3
               with:
