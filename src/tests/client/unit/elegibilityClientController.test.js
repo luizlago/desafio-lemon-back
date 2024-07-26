@@ -6,7 +6,7 @@ import output from '../mock/output.js'
 import input from '../mock/input.js'
 import { HttpCode } from '../../../constants/httpCodes.js'
 
-describe('Controller de rotas Cliente', () => {
+describe('Controller de rotas cliente', () => {
     let req, res, next
 
     beforeEach(() => {
@@ -152,7 +152,7 @@ describe('Controller de rotas Cliente', () => {
         })
     })
 
-    describe('quando falha a execução', () => {
+    describe('quando falha a execução do service', () => {
         describe('falha não esperada', () => {
             beforeEach(async () => {
                 jest.spyOn(clientService, 'verify').mockImplementation(() => {
