@@ -1,0 +1,98 @@
+openapi: 3.0.3
+info:
+    title: Documentação API
+    description: Pagina de documentação relativa a implementação do desafio de backend.
+    version: 1.0.0
+externalDocs:
+    description: Github - Luiz Lago
+    url: https://github.com/luizlago/desafio-lemon-back
+tags:
+    - name: Cliente
+      externalDocs:
+          description: Pagina do desafio
+          url: >-
+              https://lemonenergy.notion.site/Teste-Backend-Lemon-Elegibilidade-9958a9678c0d4ac99185850fdb9716fc
+paths:
+    /elegibilidade:
+        post:
+            tags:
+                - Cliente
+            description: >-
+                Verifica a elegibilidade do cliente de acordo com os padrões de
+                aceitação pré-definidos
+            operationId: checkElegibility
+            requestBody:
+                description: Dados de entrada do cliente
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/elegibilidadeInput'
+                required: true
+            responses:
+                '200':
+                    description: Retorno com sucesso
+                    content:
+                        application/json:
+                            schema:
+                                oneOf:
+                                    - $ref: '#/components/schemas/elegibilidadeOutputOk'
+                                    - $ref: '#/components/schemas/elegibilidadeOutputNok'
+                '400':
+                    description: Campos inválidos
+                '422':
+                    description: Dados de entrada inválidos
+components:
+    schemas:
+        elegibilidadeInput:
+            type: object
+            properties:
+                numeroDoDocumento:
+                    type: string
+                    example: 14041737706
+                tipoDeConexao:
+                    type: string
+                    example: bifasico
+                classeDeConsumo:
+                    type: string
+                    example: comercial
+                modalidadeTarifaria:
+                    type: string
+                    example: convencional
+                historicoDeConsumo:
+                    type: array
+                    items:
+                        type: integer
+                    example:
+                        - 3878
+                        - 9760
+                        - 5976
+                        - 2797
+                        - 2481
+                        - 5731
+                        - 7538
+                        - 4392
+                        - 7859
+                        - 4160
+                        - 6941
+                        - 4597
+        elegibilidadeOutputOk:
+            type: object
+            properties:
+                elegivel:
+                    type: boolean
+                economiaAnualDeCO2:
+                    type: number
+                    example: 5553.24
+        elegibilidadeOutputNok:
+            type: object
+            properties:
+                elegivel:
+                    type: boolean
+                    example: false
+                razoesDeInelegibilidade:
+                    type: array
+                    items:
+                        type: string
+                    example:
+                        - Classe de consumo não aceita
+                        - Modalidade tarifária não aceita

@@ -1,6 +1,7 @@
 import swagger from 'swagger-ui-express'
-import swaggerDoc from '../config/swagger.json' assert { type: 'json' }
-
+import yaml from 'yamljs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 // Customizações visuais do Swagger
 const swaggerOptions = {
     customSiteTitle: '🍋 Lemon Energy - Documentação API',
@@ -17,6 +18,10 @@ const swaggerOptions = {
             border-bottom: 20px solid #ffffff; 
         }`,
 }
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
+const swaggerDoc = yaml.load(`${__dirname}/../config/swagger.yaml`)
 
 export const swaggerServe = swagger.serve
 export const swaggerSetup = swagger.setup(swaggerDoc, swaggerOptions)
