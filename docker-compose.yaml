@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+  lemon-api:
+    build: .
+    volumes:
+      - /etc/localtime:/etc/localtime
+    container_name: lemon-api
+    expose:
+      - '3000'
+    ports:
+      - '3000:3000'

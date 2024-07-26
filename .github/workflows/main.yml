@@ -1,0 +1,37 @@
+name: main workflow
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    deploy:
+        #runs-on: ubuntu-latest
+        runs-on: self-hosted
+        steps:
+            - name: Fetch project files
+              uses: actions/checkout@v2
+            - name: Build Docker image
+              uses: wshihadeh/docker-deployment-action@v2
+              with:
+                  remote_docker_host: ${{ secrets.DOCKER_HOST_DEV }}
+                  remote_docker_port: 2222
+                  ssh_private_key: ${{ secrets.DOCKER_SSH_PRIV_KEY_DEV }}
+                  ssh_public_key: ${{ secrets.DOCKER_SSH_PUB_KEY_DEV }}
+                  deployment_mode: docker-compose
+                  stack_file_name: docker-compose.yaml
+                  args: build
+                  docker_prune: 'false'
+                  pull_images_first: 'false'
+            - name: Deploy to Docker Host
+              uses: wshihadeh/docker-deployment-action@v2
+              with:
+                  remote_docker_host: ${{ secrets.DOCKER_HOST_DEV }}
+                  remote_docker_port: 2222
+                  ssh_private_key: ${{ secrets.DOCKER_SSH_PRIV_KEY_DEV }}
+                  ssh_public_key: ${{ secrets.DOCKER_SSH_PUB_KEY_DEV }}
+                  deployment_mode: docker-compose
+                  stack_file_name: docker-compose.yaml
+                  args: up -d
+                  docker_prune: 'false'
+                  pull_images_first: 'false'
