@@ -12,9 +12,9 @@ jobs:
             - name: Fetch project files
               uses: actions/checkout@v2
             - name: 'Create env file'
-                run: |
-                  touch .env
-                  echo "PORT=300052\nAPI_PREFIX=/api/v1\nNODE_ENV=development\nRATE_LIMIT_MAX=100\nRATE_LIMIT_WINDOW=60000" >> .env
+              run: |
+                touch .env
+                echo "PORT=300052\nAPI_PREFIX=/api/v1\nNODE_ENV=development\nRATE_LIMIT_MAX=100\nRATE_LIMIT_WINDOW=60000" >> .env
             - name: Build Docker image
               uses: wshihadeh/docker-deployment-action@v2
               with:
