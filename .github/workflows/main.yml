@@ -5,15 +5,15 @@ on:
         branches: [main]
 
 jobs:
-    deploy:
-        #runs-on: ubuntu-latest
+    build:
         runs-on: self-hosted
         steps:
             - name: Fetch project files
-              uses: actions/checkout@v2
-            - name: 'Set env file'
+              uses: actions/checkout@v3
+            - name: 'Create env file'
               run: |
-                cp -f .env.example .env
+                  touch .env
+                  echo "PORT=300052\nAPI_PREFIX=/api/v1\nNODE_ENV=development\nRATE_LIMIT_MAX=100\nRATE_LIMIT_WINDOW=60000" >> .env
             - name: Build Docker image
               uses: wshihadeh/docker-deployment-action@v2
               with:
@@ -26,6 +26,24 @@ jobs:
                   args: build
                   docker_prune: 'false'
                   pull_images_first: 'false'
+    test:
+        needs: build
+        runs-on: self-hosted
+        steps:
+            - name: checkout repo
+              uses: actions/checkout@v3
+            - name: use node.js
+              uses: actions/setup-node@v3
+              with:
+                  node-version: '20.x'
+            - run: yarn install
+            - run: yarn test
+    deploy:
+        needs: test
+        runs-on: self-hosted
+        steps:
+            - name: Fetch project files
+              uses: actions/checkout@v3
             - name: Deploy to Docker Host
               uses: wshihadeh/docker-deployment-action@v2
               with:
