@@ -55,6 +55,9 @@ components:
                 classeDeConsumo:
                     type: string
                     example: comercial
+                subClasseDeConsumo:
+                    type: string
+                    example: comercial
                 modalidadeTarifaria:
                     type: string
                     example: convencional
