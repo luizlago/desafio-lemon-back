@@ -1,3 +1,4 @@
+import { HttpCode } from '../constants/httpCodes.js'
 import schemas from '../schemas/index.js'
 
 const validationOptions = {
@@ -28,7 +29,7 @@ const schemaValidator = (path) => {
                 },
             }
 
-            return res.status(422).json(joiError)
+            return res.status(HttpCode.UNPROCESSABLE_ENTITY).json(joiError)
         }
 
         // validação bem-sucedida

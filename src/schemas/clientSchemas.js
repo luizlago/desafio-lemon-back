@@ -1,12 +1,28 @@
+import { validateOrFail as isValidCPF } from 'validation-br/dist/cpf.js'
+import { validateOrFail as isValidCNPJ } from 'validation-br/dist/cnpj.js'
 import Joi from 'joi'
-const { ObjectSchema } = Joi
+
+const isCPF = (value, helper) => {
+    try {
+        isValidCPF(value)
+        return value
+    } catch (error) {
+        return helper.message(error.message)
+    }
+}
+
+const isCNPJ = (value, helper) => {
+    try {
+        isValidCNPJ(value)
+        return value
+    } catch (error) {
+        return helper.message(error.message)
+    }
+}
 
 const elegibility = Joi.object({
     numeroDoDocumento: Joi.alternatives()
-        .try(
-            Joi.string().pattern(/^\d{11}$/, 'cpf'),
-            Joi.string().pattern(/^\d{14}$/, 'cnpj')
-        )
+        .try(Joi.string().custom(isCPF), Joi.string().custom(isCNPJ))
         .required()
         .messages({
             'alternatives.match':
@@ -36,6 +52,27 @@ const elegibility = Joi.object({
             'string.base': '"classeDeConsumo" should be a "string"',
             'string.empty': '"classeDeConsumo" cannot be an empty field',
             'any.required': '"classeDeConsumo" is required',
+        }),
+    subClasseDeConsumo: Joi.string()
+        .lowercase()
+        .valid(
+            'administracaocondominial',
+            'agropecuariarural',
+            'baixarenda',
+            'comercial',
+            'industrial',
+            'poderpublicoestadual',
+            'poderpublicomunicipal',
+            'residencial',
+            'servicosdetelecomunicacao',
+            'servicosdetransporte',
+            'templosreligiosos'
+        )
+        .required()
+        .messages({
+            'string.base': '"subClasseDeConsumo" should be a "string"',
+            'string.empty': '"subClasseDeConsumo" cannot be an empty field',
+            'any.required': '"subClasseDeConsumo" is required',
         }),
     modalidadeTarifaria: Joi.string()
         .lowercase()

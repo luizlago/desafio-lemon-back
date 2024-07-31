@@ -5,6 +5,40 @@ const MIN_CONSUMPTION = {
     bifasico: 500,
     trifasico: 750,
 }
+const ALLOWED_SUBCLASSES = [
+    {
+        subClass: 'administracaocondominial',
+        class: 'comercial',
+    },
+    {
+        subClass: 'comercial',
+        class: 'comercial',
+    },
+    {
+        subClass: 'servicosdetelecomunicacao',
+        class: 'comercial',
+    },
+    {
+        subClass: 'servicosdetransporte',
+        class: 'comercial',
+    },
+    {
+        subClass: 'industrial',
+        class: 'industrial',
+    },
+    {
+        subClass: 'poderpublicoestadual',
+        class: 'poderpublico',
+    },
+    {
+        subClass: 'poderpublicomunicipal',
+        class: 'poderpublico',
+    },
+    {
+        subClass: 'residencial',
+        class: 'residencial',
+    },
+]
 
 // Calcular a média de consumo
 const calculateConsumptionAverage = (history) => {
@@ -14,8 +48,20 @@ const calculateConsumptionAverage = (history) => {
 
 // Calcular a economia anual de CO2
 const calculateAnnualCO2Savings = (history) => {
-    const totalConsumption = history.reduce((acc, curr) => acc + curr, 0)
+    const totalConsumption = calculateConsumptionAverage(history) * 12 //history.reduce((acc, curr) => acc + curr, 0)
     return parseFloat(((totalConsumption / 1000) * 84).toFixed(2), 10)
+}
+
+// Verifica a elegibilidade da subclasse em conjunto com a classe
+const searchSubclass = (clientInfo) => {
+    for (const subClassObj of ALLOWED_SUBCLASSES) {
+        if (
+            clientInfo.subClasseDeConsumo === subClassObj.subClass &&
+            clientInfo.classeDeConsumo === subClassObj.class
+        )
+            return true
+    }
+    return false
 }
 
 const verifyEligibility = (clientInfo) => {
@@ -35,6 +81,10 @@ const verifyEligibility = (clientInfo) => {
     if (!ALLOWED_CLASSES.includes(classeDeConsumo.toLowerCase())) {
         elegible = false
         reasons.push('Classe de consumo não aceita')
+    }
+    if (!searchSubclass(clientInfo)) {
+        elegible = false
+        reasons.push('Subclasse de consumo não aceita')
     }
 
     if (!ALLOWED_MODALITY.includes(modalidadeTarifaria.toLowerCase())) {
