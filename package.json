@@ -14,6 +14,7 @@
         "joi": "^17.13.3",
         "morgan": "^1.10.0",
         "swagger-ui-express": "^5.0.1",
+        "validation-br": "^1.4.5",
         "yamljs": "^0.3.0"
     },
     "devDependencies": {

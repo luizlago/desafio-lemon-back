@@ -1,4 +1,4 @@
-import { jest } from '@jest/globals'
+import { jest, expect, describe, it } from '@jest/globals'
 import input from './mock/input.js'
 import schemaValidator from '../../middlewares/schemaValidator.js'
 import { HttpCode } from '../../constants/httpCodes.js'
@@ -90,6 +90,31 @@ describe('Middleware de validação de schemas', () => {
                     details: expect.arrayContaining([
                         expect.objectContaining({
                             message: expect.stringContaining('classeDeConsumo'),
+                            type: expect.any(String),
+                        }),
+                    ]),
+                }),
+            })
+        )
+        expect(next).not.toHaveBeenCalled()
+    })
+
+    it('retorna erro 422 se o subClasseDeConsumo for inválido', () => {
+        req.body = input.elegSubClass
+
+        const middleware = schemaValidator('/elegibilidade')
+        middleware(req, res, next)
+
+        expect(res.status).toHaveBeenCalledWith(HttpCode.UNPROCESSABLE_ENTITY)
+        expect(res.json).toHaveBeenCalledWith(
+            expect.objectContaining({
+                status: 'failed',
+                error: expect.objectContaining({
+                    original: expect.any(Object),
+                    details: expect.arrayContaining([
+                        expect.objectContaining({
+                            message:
+                                expect.stringContaining('subClasseDeConsumo'),
                             type: expect.any(String),
                         }),
                     ]),

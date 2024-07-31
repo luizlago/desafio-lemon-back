@@ -23,11 +23,13 @@ const isCNPJ = (value, helper) => {
 const elegibility = Joi.object({
     numeroDoDocumento: Joi.alternatives()
         .try(Joi.string().custom(isCPF), Joi.string().custom(isCNPJ))
+        .invalid('0')
         .required()
         .messages({
             'alternatives.match':
                 '"numeroDoDocumento" does not match "cpf" or "cnpj"',
             'any.required': '"numeroDoDocumento" is required',
+            'any.invalid"': 'numeroDoDocumento contains an invalid value',
         }),
     tipoDeConexao: Joi.string()
         .lowercase()
@@ -56,6 +58,7 @@ const elegibility = Joi.object({
     subClasseDeConsumo: Joi.string()
         .lowercase()
         .valid(
+            '',
             'administracaocondominial',
             'agropecuariarural',
             'baixarenda',
@@ -71,7 +74,6 @@ const elegibility = Joi.object({
         .required()
         .messages({
             'string.base': '"subClasseDeConsumo" should be a "string"',
-            'string.empty': '"subClasseDeConsumo" cannot be an empty field',
             'any.required': '"subClasseDeConsumo" is required',
         }),
     modalidadeTarifaria: Joi.string()

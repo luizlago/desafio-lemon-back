@@ -24,6 +24,15 @@ describe('Service das rotas cliente', () => {
                 expect(result).toEqual(output.resElegClass)
             })
         })
+        describe('quando a subclasse  de consumo é inválida', () => {
+            let result
+            beforeEach(async () => {
+                result = await clientService.verify(input.elegSubClass)
+            })
+            it('retorno esperado', () => {
+                expect(result).toEqual(output.resElegSubClass)
+            })
+        })
         describe('quando a modalidade tarifária é inválida', () => {
             let result
             beforeEach(async () => {

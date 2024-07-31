@@ -58,6 +58,23 @@ describe('Controller de rotas cliente', () => {
                 expect(res.json).toHaveBeenCalledWith(output.resElegClass)
             })
         })
+        describe('quando a subClasse  de consumo é inválida', () => {
+            beforeEach(async () => {
+                jest.spyOn(clientService, 'verify').mockReturnValue(
+                    output.resElegSubClass
+                )
+                req.body = input.elegSubClass
+                await clientController.eligibility(req, res, next)
+            })
+
+            it('statusCode 200', () => {
+                expect(res.status).toHaveBeenCalledWith(HttpCode.OK)
+            })
+
+            it('Payload JSON classe inválida', () => {
+                expect(res.json).toHaveBeenCalledWith(output.resElegSubClass)
+            })
+        })
         describe('quando a modalidade tarifária é inválida', () => {
             beforeEach(async () => {
                 jest.spyOn(clientService, 'verify').mockReturnValue(

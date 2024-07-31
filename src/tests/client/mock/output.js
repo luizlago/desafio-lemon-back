@@ -7,7 +7,16 @@ const resElegOk = {
 // quando a classe  de consumo é inválida
 const resElegClass = {
     elegivel: false,
-    razoesDeInelegibilidade: ['Classe de consumo não aceita'],
+    razoesDeInelegibilidade: [
+        'Classe de consumo não aceita',
+        'Subclasse de consumo não aceita',
+    ],
+}
+
+// quando a subClasse  de consumo é inválida
+const resElegSubClass = {
+    elegivel: false,
+    razoesDeInelegibilidade: ['Subclasse de consumo não aceita'],
 }
 
 // quando a modalidade tarifária é inválida
@@ -21,6 +30,7 @@ const resElegClassAndModality = {
     elegivel: false,
     razoesDeInelegibilidade: [
         'Classe de consumo não aceita',
+        'Subclasse de consumo não aceita',
         'Modalidade tarifária não aceita',
     ],
 }
@@ -38,6 +48,7 @@ const resElegLowConsumptionAndClass = {
     elegivel: false,
     razoesDeInelegibilidade: [
         'Classe de consumo não aceita',
+        'Subclasse de consumo não aceita',
         'Consumo mínimo insuficiente para o tipo de conexão',
     ],
 }
@@ -58,4 +69,5 @@ export default {
     resElegLowConsumptionAndClass,
     resElegLowConsumptionAndModality,
     resElegModality,
+    resElegSubClass,
 }

@@ -1,8 +1,9 @@
 // valido
 const elegOk = {
-    numeroDoDocumento: '14041737706',
+    numeroDoDocumento: '94829673052',
     tipoDeConexao: 'bifasico',
     classeDeConsumo: 'comercial',
+    subClasseDeConsumo: 'comercial',
     modalidadeTarifaria: 'convencional',
     historicoDeConsumo: [
         3878, // mes atual
@@ -22,9 +23,33 @@ const elegOk = {
 
 // quando a classe  de consumo é inválida
 const elegClass = {
-    numeroDoDocumento: '14041737706',
+    numeroDoDocumento: '94829673052',
     tipoDeConexao: 'bifasico',
     classeDeConsumo: 'rural',
+    subClasseDeConsumo: '',
+    modalidadeTarifaria: 'convencional',
+    historicoDeConsumo: [
+        3878, // mes atual
+        9760, // mes anterior
+        5976, // 2 meses atras
+        2797, // 3 meses atras
+        2481, // 4 meses atras
+        5731, // 5 meses atras
+        7538, // 6 meses atras
+        4392, // 7 meses atras
+        7859, // 8 meses atras
+        4160, // 9 meses atras
+        6941, // 10 meses atras
+        4597, // 11 meses atras
+    ],
+}
+
+// quando a subclasse  de consumo é inválida
+const elegSubClass = {
+    numeroDoDocumento: '94829673052',
+    tipoDeConexao: 'bifasico',
+    classeDeConsumo: 'comercial',
+    subClasseDeConsumo: 'residencial',
     modalidadeTarifaria: 'convencional',
     historicoDeConsumo: [
         3878, // mes atual
@@ -44,9 +69,10 @@ const elegClass = {
 
 // quando a modalidade  de consumo é inválida
 const elegModality = {
-    numeroDoDocumento: '14041737706',
+    numeroDoDocumento: '94829673052',
     tipoDeConexao: 'bifasico',
     classeDeConsumo: 'comercial',
+    subClasseDeConsumo: 'comercial',
     modalidadeTarifaria: 'verde',
     historicoDeConsumo: [
         3878, // mes atual
@@ -66,9 +92,10 @@ const elegModality = {
 
 // quando a classe e a modalidade  de consumo é inválida
 const elegClassAndModality = {
-    numeroDoDocumento: '14041737706',
+    numeroDoDocumento: '94829673052',
     tipoDeConexao: 'bifasico',
     classeDeConsumo: 'rural',
+    subClasseDeConsumo: '',
     modalidadeTarifaria: 'verde',
     historicoDeConsumo: [
         3878, // mes atual
@@ -88,9 +115,10 @@ const elegClassAndModality = {
 
 // quando o consumo minimo está abaixo
 const elegLowConsumption = {
-    numeroDoDocumento: '14041737706',
+    numeroDoDocumento: '94829673052',
     tipoDeConexao: 'bifasico',
     classeDeConsumo: 'comercial',
+    subClasseDeConsumo: 'comercial',
     modalidadeTarifaria: 'convencional',
     historicoDeConsumo: [
         100, // mes atual
@@ -110,9 +138,10 @@ const elegLowConsumption = {
 
 // quando a modalidade e o consumo são inválidos
 const elegLowConsumptionAndModality = {
-    numeroDoDocumento: '14041737706',
+    numeroDoDocumento: '94829673052',
     tipoDeConexao: 'bifasico',
     classeDeConsumo: 'comercial',
+    subClasseDeConsumo: 'comercial',
     modalidadeTarifaria: 'verde',
     historicoDeConsumo: [
         100, // mes atual
@@ -132,9 +161,10 @@ const elegLowConsumptionAndModality = {
 
 // quando a classe e o consumo são inválidos
 const elegLowConsumptionAndClass = {
-    numeroDoDocumento: '14041737706',
+    numeroDoDocumento: '94829673052',
     tipoDeConexao: 'bifasico',
     classeDeConsumo: 'rural',
+    subClasseDeConsumo: '',
     modalidadeTarifaria: 'convencional',
     historicoDeConsumo: [
         100, // mes atual
@@ -153,9 +183,10 @@ const elegLowConsumptionAndClass = {
 }
 // quando existem campos ausentes
 const elegFieldMissing = {
-    numeroDoDocumento: '14041737706',
+    numeroDoDocumento: '94829673052',
     tipoDeConexao: 'bifasico',
     classeDeConsumo: 'rural',
+    subClasseDeConsumo: '',
     modalidadeTarifaria: 'verde',
 }
 
@@ -168,4 +199,5 @@ export default {
     elegLowConsumptionAndModality,
     elegModality,
     elegClassAndModality,
+    elegSubClass,
 }

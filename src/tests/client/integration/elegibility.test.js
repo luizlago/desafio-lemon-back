@@ -182,6 +182,27 @@ describe('POST /elegibilidade', () => {
                 )
             })
         })
+        describe('quando a subclasse  de consumo é inválida', () => {
+            let response
+
+            beforeAll(async () => {
+                response = await request(app)
+                    .post('/api/v1/cliente/elegibilidade')
+                    .send(clientInput.elegSubClass)
+            })
+
+            it('retorna o código de status 200', () => {
+                expect(response.status).toBe(HttpCode.OK)
+            })
+
+            it('retorna um objeto', () => {
+                expect(response.body).toBeInstanceOf(Object)
+            })
+
+            it('retorno esperado"', () => {
+                expect(response.body).toEqual(clientOutput.resElegSubClass)
+            })
+        })
     })
 
     describe('Falha no payload', () => {
